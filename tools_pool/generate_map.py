@@ -222,7 +222,7 @@ if __name__ == "__main__":
     
     if not os.path.exists(example_json_path):
         print(f"错误: 示例文件 '{example_json_path}' 不存在。")
-        print("请先运行 `common_utils/loadSequence.py` 来生成该文件。")
+        print("请先运行 `common_utils/file_operations.py` 来生成该文件。")
     else:
         print(f"正在使用示例文件 '{example_json_path}' 生成图谱...")
         result = generate_map(example_json_path)

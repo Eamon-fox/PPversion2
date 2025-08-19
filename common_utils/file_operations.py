@@ -1,5 +1,5 @@
-# snapgene_to_sequence_record.py
-# 极简：把 snapgene_reader.snapgene_file_to_dict(...) 的 dict 转为 SequenceRecord 并打印 JSON
+# file_operations.py
+# 文件操作工具，包括读取SnapGene和FASTA文件，以及列出data目录结构
 
 import sys, os, json, uuid
 from typing import Dict, Any
@@ -186,16 +186,43 @@ def load_sequence(input_path: str) -> dict:
         "sequence_info": info
     }
 
+def list_data() -> list:
+    """
+    读取 /data/ 目录下的文件树结构
+    
+    Returns:
+        list: 包含文件和目录信息的列表，每个元素包含名称、类型和绝对路径
+    """
+    # 使用指定的绝对路径定位 data 目录
+    data_dir = r"C:\Users\57246\Documents\GitHub\PPversion2\data"
+    if not os.path.exists(data_dir):
+        return []
+    
+    result = []
+    try:
+        for item in os.listdir(data_dir):
+            item_path = os.path.join(data_dir, item)
+            # item_path 已经是绝对路径了
+            item_info = {
+                "name": item,
+                "type": "directory" if os.path.isdir(item_path) else "file",
+                "path": item_path.replace("\\", "/")  # 统一使用正斜杠
+            }
+            result.append(item_info)
+        return result
+    except Exception as e:
+        raise RuntimeError(f"读取目录结构时出错: {str(e)}")
+
 
 if __name__ == "__main__":
     # 示例：处理 SnapGene 文件
-    snapgene_file = "D:\github_repo\PPversion2\data\pcDNA3.1(-).dna"
+    snapgene_file = r"D:\github_repo\PPversion2\data\pcDNA3.1(-).dna"
     print(f"处理 SnapGene 文件: {snapgene_file}")
     load_sequence(snapgene_file)
 
     print("-" * 30)
 
     # 示例：处理 FASTA 文件
-    fasta_file = "D:\github_repo\PPversion2\data\RTCB_Homo_sapiens_lcl_NM_014306.5_cds_NP_055121.1_1.fasta"
+    fasta_file = r"D:\github_repo\PPversion2\data\RTCB_Homo_sapiens_lcl_NM_014306.5_cds_NP_055121.1_1.fasta"
     print(f"处理 FASTA 文件: {fasta_file}")
     load_sequence(fasta_file)

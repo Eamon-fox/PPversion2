@@ -2,7 +2,7 @@
 from mcp.server.fastmcp import FastMCP
 from tools_pool.get_sequence_info import get_sequence_info
 from tools_pool.find_features import find_features
-from common_utils.loadSequence import load_sequence
+from common_utils.file_operations import load_sequence, list_data
 from tools_pool.design_primer_suite import design_primer_suite
 from tools_pool.simulate_restriction_digestion import simulate_restriction_digestion
 from tools_pool.simulate_pcr import simulate_pcr
@@ -21,6 +21,7 @@ mcp.tool()(simulate_pcr) # 模拟PCR扩增，返回扩增后的片段列表
 mcp.tool()(write_record_to_json) # 将记录写入JSON文件
 mcp.tool()(load_sequence_from_json) # 从JSON文件加载SequenceRecord等符合Schema的记录
 mcp.tool()(get_sequence) # 从包含 "sequence" 字段的 JSON 文件中读取序列，并返回序列字符串本身
+mcp.tool()(list_data) # 列出 /data/ 目录下的文件树结构
 def main():
     """启动 MCP 服务器"""
     # 显式指定 stdio 传输

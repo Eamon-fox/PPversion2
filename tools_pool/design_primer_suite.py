@@ -6,7 +6,7 @@ from typing import Optional, Dict, List, Literal, Any
 # 允许从上级目录导入
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from common_utils.sequence import get_sequence, Primer
-from common_utils.loadSequence import load_sequence
+from common_utils.file_operations import load_sequence
 
 # =========================
 # 变化摘要（读这几行就够了）
